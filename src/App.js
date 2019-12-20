@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import Article from "./components/Article";
 import axios from "axios";
 import ArticleView from './components/ArticleView';
 
@@ -17,6 +15,7 @@ class App extends Component {
     }
     componentWillMount() {
         this.refreshPosts();
+      
     }
     refreshPosts = () => {
         //   alert("refresh");
@@ -25,23 +24,22 @@ class App extends Component {
             .then(res => this.setState({ Articles: res.data }))
             .catch(err => console.log(err));
     };
-    renderArticles = () => {
-        let articles = this.state.Articles;
-        // alert(articles[0].title);
 
-
-
-    }
     render() {
         const articles = this.state.Articles.map(function (article) {
             return <ArticleView title={article.title} category={article.category} description={article.description}
-                                date={article.date}/>
+                date={article.date} />
         });
 
         return (
-            <ul className="Articles">
-                {articles}
-            </ul>
+            <div>
+                <a href="/write_article">
+                <button onClick={this.writeNewArticle}>Write new Article</button>
+                </a>
+                <div className="Articles">
+                    {articles}
+                </div>
+            </div>
         );
     }
 
