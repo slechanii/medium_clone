@@ -12,10 +12,10 @@ class ArticleView extends Component {
     render(props) {
         return (
             <div className="ArticleView" >
-            {/* <p>{this.props.category}</p> */}
+            <p>{this.props.category}</p>
             <p>{this.props.title}</p>
-            {/* <p>{this.props.description}</p> */}
-            {/* <p>{this.props.date}</p> */}
+            <p>{this.props.description}</p>
+            <p>{this.props.date}</p>
             </div>
         );
     };

@@ -33,13 +33,14 @@ class App extends Component {
 
     }
     render() {
-        const renderItems = this.state.Articles.map(function (item) {
-            return <ArticleView title={item.title}/>
+        const articles = this.state.Articles.map(function (article) {
+            return <ArticleView title={article.title} category={article.category} description={article.description}
+                                date={article.date}/>
         });
 
         return (
-            <ul className="FetchDemo">
-                {renderItems}
+            <ul className="Articles">
+                {articles}
             </ul>
         );
     }
