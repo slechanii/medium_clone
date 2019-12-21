@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import axios from "axios";
 import ArticleView from './components/ArticleView';
 
@@ -11,12 +10,12 @@ class App extends Component {
             Articles: [],
         };
         // Article = Article
-
+        this.refreshPosts();
     }
     componentWillMount() {
-        this.refreshPosts();
-      
+        this.refreshPosts();      
     }
+    
     refreshPosts = () => {
         //   alert("refresh");
         axios
@@ -34,7 +33,7 @@ class App extends Component {
         return (
             <div>
                 <a href="/write_article">
-                <button onClick={this.writeNewArticle}>Write new Article</button>
+                <button >Write new Article</button>
                 </a>
                 <div className="Articles">
                     {articles}
