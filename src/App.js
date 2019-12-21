@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from "axios";
-import ArticleView from './components/ArticleView';
+import Article from './components/Article';
 
 class App extends Component {
     constructor(props) {
@@ -13,8 +13,9 @@ class App extends Component {
         this.refreshPosts();
     }
     componentWillMount() {
-        this.refreshPosts();      
+        this.refreshPosts();
     }
+
     
     refreshPosts = () => {
         //   alert("refresh");
@@ -26,14 +27,14 @@ class App extends Component {
 
     render() {
         const articles = this.state.Articles.map(function (article) {
-            return <ArticleView title={article.title} category={article.category} description={article.description}
-                date={article.date} />
+            return <Article title={article.title} category={article.category} description={article.description}
+                id={article.id}date={article.date}/>
         });
 
         return (
             <div>
                 <a href="/write_article">
-                <button >Write new Article</button>
+                    <button >Write new Article</button>
                 </a>
                 <div className="Articles">
                     {articles}

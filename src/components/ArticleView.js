@@ -12,6 +12,7 @@ class ArticleView extends Component {
     render(props) {
         return (
             <div className="ArticleView" >
+            ARTICLE VIEW
             <p>{this.props.category}</p>
             <p>{this.props.title}</p>
             <p>{this.props.description}</p>
