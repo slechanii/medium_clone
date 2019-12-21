@@ -19,8 +19,7 @@ class Article extends Component {
         const read_article = this.state.readArticle;
 
         if (read_article){
-            const article_url = "/read_article?id=" + this.props.id; 
-            alert("redirect  " + article_url);
+            const article_url = "/read_article/" + this.props.id; 
             return <Redirect to={article_url}/>
         }
         return (
