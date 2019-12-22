@@ -49,21 +49,21 @@ class ArticleView extends Component {
     displayArticle = () => {
 
         return (
-            <div>
+            <div class="ui list">
                 <div>
-                    {this.state.Article.title}
+                  Article title :  {this.state.Article.title}
                 </div>
                 <div>
-                    {this.state.Article.category}
+                  Article category :  {this.state.Article.category}
                 </div>
                 <div>
-                    {this.state.Article.description}
+                  Article description :  {this.state.Article.description}
                 </div>
                 <div>
-                    {this.state.Article.date}
+                  Article publication date :  {this.state.Article.date}
                 </div>
                 <div>
-                    {this.state.Article.body}
+                 Article body :     {this.state.Article.body}
                 </div>
                 <div>
                     {this.state.Article.likes} Likes
@@ -112,32 +112,32 @@ class ArticleView extends Component {
             return <Comment id={comment} />
         });
         return (
-            <div>
-                <div className="ArticleView" >
-                    ARTICLE VIEW
+            <div className="center aligned ui two column centered grid">
+                <div className="four column centered row" >
+            
                     {this.displayArticle()}
                 </div>
-                <div>
-                    <Button onClick={this.likeArticle}>Give a Like</Button>
+                <div className="four column centered row">
+                    <Button color="green" onClick={this.likeArticle}>Give a Like</Button>
                     <a href="/">
                         <Button>Go Back</Button>
                     </a>
-                    <Button onClick={this.deleteArticle}>Delete Article</Button>
+                    <Button color="red" onClick={this.deleteArticle}>Delete Article</Button>
                 </div>
 
-                <div className="NewComment">
+                <div className="four column centered row" >
                     <div>
                         ----Write New Comment----
                 </div>
-                    <div>
+                    <div className="six column centered row">
                         <Input name="username" onChange={event => this.updateCommentState(event)} type="text" placeholder="Enter your name"></Input>
                         <TextArea name="comment" onChange={event => this.updateCommentState(event)} placeholder="Enter your comment"></TextArea>
-                        <Button onClick={this.postComment}>Post NewComment</Button>
+                        <Button color="green" onClick={this.postComment}>Post NewComment</Button>
                     </div>
                 </div>
-                <div>
-                    Article comments : {this.state.Article.comments}
-                    <div>
+                <div className="four column centered row">
+                    ----Article comments----  
+                    <div className="ui list"> 
                         {comments}
                     </div>
                 </div>

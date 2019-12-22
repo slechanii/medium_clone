@@ -22,7 +22,7 @@ class Comment extends Component {
      
      
         return (
-            <div className="Comment">
+            <div className="comment four column row centered">
                 <div>
                     {/* Comment id = {this.props.id} */}
                     Comment author : {this.state.Comment.username}                     

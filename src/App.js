@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from "axios";
 import Article from './components/Article';
+import { Button } from 'semantic-ui-react';
 
 class App extends Component {
     constructor(props) {
@@ -32,14 +33,19 @@ class App extends Component {
         });
 
         return (
-            <div>
-                <div>
-                    Click on an article to read it 
-                </div>
+
+            
+            <div class="ui two column centered row">
+            
+
+            
+                <div class="column">
                 <a href="/write_article">
-                    <button >Write new Article</button>
+                    <Button color="blue">Write new Article</Button>
                 </a>
-                <div className="Articles">
+                </div>              
+                <div className="column ">
+                Click on an article to read it  
                     {articles}
                 </div>
             </div>
