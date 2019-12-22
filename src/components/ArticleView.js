@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import NewArticle from './NewArticle';
-import { withRouter } from "react-router-dom";
-import { Button } from 'semantic-ui-react';
-import NewComment from './NewComment'
+import { Input, TextArea, Button } from 'semantic-ui-react';
 import Comment from './Comment'
+
 class ArticleView extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +11,7 @@ class ArticleView extends Component {
                 title: "", category: "", description: "",
                 body: "", date: "", likes: 0, comments: [],
             },
-            Comments: [],
+            Comment: { username: "", comment: "", article:0 },
         };
 
     }
@@ -42,13 +40,14 @@ class ArticleView extends Component {
                 likes: this.state.Article.likes + 1
             })
             .then(() => {
+                this.getArticleData();
                 this.displayArticle();
             })
             .catch(err => console.log(err.response.data));
     };
 
     displayArticle = () => {
-        this.getArticleData();
+
         return (
             <div>
                 <div>
@@ -90,24 +89,32 @@ class ArticleView extends Component {
             .catch(err => console.log(err));
     };
 
-    displayComments = () => {
-       
+    postComment = () => {
+        const { match: { params } } = this.props;
+        this.state.Comment.article = params.articleId;
 
-       
+        axios
+            .post("http://127.0.0.1:8000/api/comments/", this.state.Comment)
+            .then(this.getArticleData())
+            .catch(err => console.log(err));
+    };
+
+    updateCommentState = (event) => {
+        if (event.target.name == "username")
+            this.state.Comment.username = event.target.value;
+        else
+            this.state.Comment.comment = event.target.value;
     };
 
     render(props) {
         const { match: { params } } = this.props;
-
         const comments = this.state.Article.comments.map(function (comment) {
-            //  alert("comment")
-             return <Comment id={comment}/>
+            return <Comment id={comment} />
         });
         return (
             <div>
                 <div className="ArticleView" >
                     ARTICLE VIEW
-            id = {params.articleId}
                     {this.displayArticle()}
                 </div>
                 <div>
@@ -117,7 +124,17 @@ class ArticleView extends Component {
                     </a>
                     <Button onClick={this.deleteArticle}>Delete Article</Button>
                 </div>
-                <NewComment></NewComment>
+
+                <div className="NewComment">
+                    <div>
+                        ----Write New Comment----
+                </div>
+                    <div>
+                        <Input name="username" onChange={event => this.updateCommentState(event)} type="text" placeholder="Enter your name"></Input>
+                        <TextArea name="comment" onChange={event => this.updateCommentState(event)} placeholder="Enter your comment"></TextArea>
+                        <Button onClick={this.postComment}>Post NewComment</Button>
+                    </div>
+                </div>
                 <div>
                     Article comments : {this.state.Article.comments}
                     <div>
