@@ -1,25 +1,75 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import NewArticle from './NewArticle';
-
+import { withRouter } from "react-router-dom";
+import { Button } from 'semantic-ui-react';
+import NewComment from './NewComment'
+import Comment from './Comment'
 class ArticleView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Article: {title:""},
+            Article: {
+                title: "", category: "", description: "",
+                body: "", date: "", likes: 0, comments: [],
+            },
+            Comments: [],
         };
 
     }
 
     componentWillMount() {
         this.getArticleData();
+        this.getArticleComments();
     }
 
+    deleteArticle = () => {
+        const { match: { params } } = this.props;
+        axios
+            .delete("http://127.0.0.1:8000/api/articles/" + params.articleId + '/')
+            .then(() => {
+                this.props.history.push("/");
+            })
+            .catch(err => console.log(err));
+    };
+
+    likeArticle = () => {
+
+        this.getArticleData();
+        const { match: { params } } = this.props;
+        axios
+            .patch("http://127.0.0.1:8000/api/articles/" + params.articleId + '/', {
+                likes: this.state.Article.likes + 1
+            })
+            .then(() => {
+                this.displayArticle();
+            })
+            .catch(err => console.log(err.response.data));
+    };
+
     displayArticle = () => {
-        // alert(this.state.Article.title);
+        this.getArticleData();
         return (
             <div>
-              title is {this.state.Article.title}
+                <div>
+                    {this.state.Article.title}
+                </div>
+                <div>
+                    {this.state.Article.category}
+                </div>
+                <div>
+                    {this.state.Article.description}
+                </div>
+                <div>
+                    {this.state.Article.date}
+                </div>
+                <div>
+                    {this.state.Article.body}
+                </div>
+                <div>
+                    {this.state.Article.likes} Likes
+                </div>
+
             </div>
         )
     };
@@ -32,19 +82,48 @@ class ArticleView extends Component {
             .catch(err => console.log(err));
     };
 
+    getArticleComments = () => {
+        const { match: { params } } = this.props;
+        axios
+            .get("http://127.0.0.1:8000/api/comments/" + params.articleId)
+            .then(res => this.setState({ Comments: res.data }))
+            .catch(err => console.log(err));
+    };
+
+    displayComments = () => {
+       
+
+       
+    };
+
     render(props) {
         const { match: { params } } = this.props;
-        //  alert(this.state.Article.title);
+
+        const comments = this.state.Article.comments.map(function (comment) {
+            //  alert("comment")
+             return <Comment id={comment}/>
+        });
         return (
-            <div className="ArticleView" >
-                ARTICLE VIEW
+            <div>
+                <div className="ArticleView" >
+                    ARTICLE VIEW
             id = {params.articleId}
-            {this.displayArticle()}
-                {/* Name = {this.Article.title}  */}
-                {/* <p>{this.props.category}</p>
-            <p>{this.props.title}</p>
-            <p>{this.props.description}</p>
-            <p>{this.props.date}</p> */}
+                    {this.displayArticle()}
+                </div>
+                <div>
+                    <Button onClick={this.likeArticle}>Give a Like</Button>
+                    <a href="/">
+                        <Button>Go Back</Button>
+                    </a>
+                    <Button onClick={this.deleteArticle}>Delete Article</Button>
+                </div>
+                <NewComment></NewComment>
+                <div>
+                    Article comments : {this.state.Article.comments}
+                    <div>
+                        {comments}
+                    </div>
+                </div>
             </div>
         );
     };

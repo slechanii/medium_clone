@@ -20,6 +20,7 @@ from blog_app import views
 
 router = routers.DefaultRouter()
 router.register(r'articles', views.ArticleView, 'articles')
+router.register(r'comments', views.CommentView, 'comments')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

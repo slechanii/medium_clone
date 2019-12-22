@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-
+import '../App.css';
 class Article extends Component {
     constructor(props) {
         super(props);
@@ -23,11 +23,12 @@ class Article extends Component {
             return <Redirect to={article_url}/>
         }
         return (
-            <div className="Article" onClick={this.setReadArticle}>
-                <p>{this.props.category}</p>
-                <p>{this.props.title}</p>
-                <p>{this.props.description}</p>
-                <p>{this.props.date}</p>
+            <div className="article" onClick={this.setReadArticle}>
+               <p> Category: {this.props.category}</p>
+                <p>  Title: {this.props.title}</p>
+                <p>Description: {this.props.description}</p>
+                <p>Date: {this.props.date}</p>
+                <p>{this.props.likes} likes</p>
             </div>
         );
     };

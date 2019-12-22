@@ -28,11 +28,14 @@ class App extends Component {
     render() {
         const articles = this.state.Articles.map(function (article) {
             return <Article title={article.title} category={article.category} description={article.description}
-                id={article.id}date={article.date}/>
+                id={article.id} date={article.date} likes={article.likes}/>
         });
 
         return (
             <div>
+                <div>
+                    Click on an article to read it 
+                </div>
                 <a href="/write_article">
                     <button >Write new Article</button>
                 </a>

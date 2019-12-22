@@ -23,6 +23,7 @@ class NewArticle extends Component {
             description: this.state.description,
             category: this.state.category,
             body: this.state.body,
+            comments: [],
         }
     };
 
